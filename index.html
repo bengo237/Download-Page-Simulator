@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation de Téléchargement</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('img/bg.jpg'); /* Chemin vers l'image d'arrière-plan */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+        }
+        .progress-container {
+            width: 80%;
+            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative; /* Position relative pour positionner le compteur de secondes */
+            padding: 20px;
+        }
+        .progress-bar {
+            height: 30px;
+            width: 0;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            transition: width 0.5s;
+        }
+        .timestamp {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            color: #ccc;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <h1>Simulation de Téléchargement</h1>
+        <p>Cette page simule un téléchargement avec une barre de progression et un compteur de secondes.</p>
+        <div class="progress-bar" id="progress-bar">0%</div>
+        <div class="timestamp" id="timestamp">Temps écoulé : 0 secondes</div>
+    </div>
+
+    <script>
+        function simulateDownload() {
+            let progressBar = document.getElementById('progress-bar');
+            let timestamp = document.getElementById('timestamp');
+            let width = 0;
+            let seconds = 0;
+            let interval = setInterval(frame, 85); // Increment every 50 milliseconds for smoother animation
+            let downloadTime = 100; // Adjust this value for the total download time (in seconds)
+
+            function frame() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    progressBar.innerHTML = 'Téléchargement terminé';
+                } else {
+                    width++;
+                    if (width % 2 === 0) { // Increment seconds every two width increments to create a 5-second delay
+                        seconds++;
+                    }
+                    progressBar.style.width = width + '%';
+                    progressBar.innerHTML = width + '%';
+                    timestamp.innerHTML = 'Temps écoulé : ' + seconds + ' secondes';
+                }
+            }
+        }
+
+        // Start the simulation
+        simulateDownload();
+    </script>
+</body>
+</html>
